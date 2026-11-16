@@ -1,5 +1,5 @@
 import tkinter as tk
-from typing import Optional
+
 from fdf.model import Map
 from fdf.projection import Camera
 

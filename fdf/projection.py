@@ -1,7 +1,7 @@
 import math
-from typing import Tuple
 
 from fdf.model import Map, Point
+
 
 class Camera:
     """Менеджер для управления масштабом, смещением и проекцией точек."""
@@ -61,7 +61,7 @@ class Camera:
         self.offset_x = self.width / 2 - proj_center_x
         self.offset_y = self.height / 2 - proj_center_y
 
-    def project_point(self, p: Point) -> Tuple[float, float]:
+    def project_point(self, p: Point) -> tuple[float, float]:
         """Превращает одну 3D-точку (x, y, z) в 2D-координаты экрана (X, Y)."""
         cos30 = math.cos(math.radians(30))
         sin30 = math.sin(math.radians(30))
