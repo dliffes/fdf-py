@@ -42,10 +42,12 @@ fdf/app.py — графический интерфейс и отрисовка �
 tests/ — модульные тесты на pytest.
 
 Тесты
+```
 Bash
 pytest -q
 mypy --strict fdf main.py
 ruff check .
+```
 
 Лицензия
 MIT
