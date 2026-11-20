@@ -2,6 +2,13 @@ import math
 
 from fdf.model import Map, Point
 
+DEFAULT_HEIGHT_PALETTE: tuple[str, ...] = (
+    "#3B82F6",
+    "#22C55E",
+    "#EAB308",
+    "#EF4444",
+)
+
 
 class Camera:
     """Менеджер для управления масштабом, смещением и проекцией точек."""
@@ -140,3 +147,52 @@ class Camera:
         screen_x = x_prime * self.scale + self.offset_x
         screen_y = y_prime * self.scale + self.offset_y
         return screen_x, screen_y
+
+
+def _hex_to_rgb(hex_color: str) -> tuple[int, int, int]:
+    cleaned = hex_color.strip().lstrip("#")
+    if len(cleaned) != 6:
+        raise ValueError(f"Expected #RRGGBB color, got {hex_color!r}")
+    return (
+        int(cleaned[0:2], 16),
+        int(cleaned[2:4], 16),
+        int(cleaned[4:6], 16),
+    )
+
+
+def _rgb_to_hex(r: int, g: int, b: int) -> str:
+    return f"#{r:02X}{g:02X}{b:02X}"
+
+
+def lerp_color(color_a: str, color_b: str, t: float) -> str:
+    """Линейно интерполирует два цвета #RRGGBB по параметру t в [0.0, 1.0]."""
+    clamped_t = max(0.0, min(1.0, t))
+    r1, g1, b1 = _hex_to_rgb(color_a)
+    r2, g2, b2 = _hex_to_rgb(color_b)
+
+    r = round(r1 + (r2 - r1) * clamped_t)
+    g = round(g1 + (g2 - g1) * clamped_t)
+    b = round(b1 + (b2 - b1) * clamped_t)
+    return _rgb_to_hex(r, g, b)
+
+
+def height_color(
+    z: int,
+    z_min: int,
+    z_max: int,
+    palette: tuple[str, ...] = DEFAULT_HEIGHT_PALETTE,
+) -> str:
+    """Возвращает цвет по высоте z относительно диапазона [z_min, z_max]."""
+    if not palette:
+        return "#FFFFFF"
+    if len(palette) == 1 or z_max <= z_min:
+        return palette[0].upper()
+
+    t = (z - z_min) / (z_max - z_min)
+    clamped_t = max(0.0, min(1.0, t))
+
+    segments = len(palette) - 1
+    scaled = clamped_t * segments
+    idx = min(int(scaled), segments - 1)
+    local_t = scaled - idx
+    return lerp_color(palette[idx], palette[idx + 1], local_t)
