@@ -1,7 +1,22 @@
-﻿.venv/
+﻿# Виртуальные окружения
+.venv/
+venv/
+env/
+
+# Кэш Python и байт-код
 __pycache__/
-*.pyc
-.mypy_cache/
+*.py[cod]
+*$py.class
+
+# Кэши тестов, типов и линтера
 .pytest_cache/
+.mypy_cache/
 .ruff_cache/
+.coverage
+htmlcov/
+
+# Настройки IDE и ОС
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
