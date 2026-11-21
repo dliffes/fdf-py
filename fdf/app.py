@@ -44,6 +44,7 @@ class App(tk.Tk):
 
         # Изменение высоты (+ / -)
         self.bind("+", lambda event: self._change_z_scale(self.Z_SCALE_STEP))
+        self.bind("=", lambda event: self._change_z_scale(self.Z_SCALE_STEP))
         self.bind("-", lambda event: self._change_z_scale(-self.Z_SCALE_STEP))
    
         # Поворот карты (q / e)
