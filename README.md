@@ -46,9 +46,8 @@ fdf/projection.py — изометрическая проекция, масшт�
 fdf/app.py — графический интерфейс и отрисовка каркаса.
 tests/ — модульные тесты на pytest.
 
-Тесты
-```
-Bash
+## Тесты
+```bash
 pytest -q
 mypy --strict fdf main.py
 ruff check .
