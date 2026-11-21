@@ -30,7 +30,7 @@ python main.py maps/elem.fdf
 
 0 0 0 0 0
 <br>
-0 2 2 2 0
+0 2 2 2 0,0xFF0000
 <br>
 0 2 5 2 0
 <br>
