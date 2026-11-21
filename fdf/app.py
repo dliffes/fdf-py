@@ -44,11 +44,8 @@ class App(tk.Tk):
 
         # Изменение высоты (+ / -)
         self.bind("+", lambda event: self._change_z_scale(self.Z_SCALE_STEP))
-        self.bind("=", lambda event: self._change_z_scale(self.Z_SCALE_STEP))
-        self.bind("<KP_Add>", lambda event: self._change_z_scale(self.Z_SCALE_STEP))
         self.bind("-", lambda event: self._change_z_scale(-self.Z_SCALE_STEP))
-        self.bind("<KP_Subtract>", lambda event: self._change_z_scale(-self.Z_SCALE_STEP))
-
+   
         # Поворот карты (q / e)
         self.bind("q", lambda event: self._rotate(-self.ROTATE_STEP))
         self.bind("e", lambda event: self._rotate(self.ROTATE_STEP))
@@ -68,9 +65,10 @@ class App(tk.Tk):
         self.draw()
 
     def _change_z_scale(self, delta: float) -> None:
+        """Изменяет масштаб высоты (z_scale) и перерисовывает модель."""
         self.camera.adjust_z_scale(delta)
-        self.draw()
-
+        self.draw()  
+        
     def _pan(self, dx: float, dy: float) -> None:
         self.camera.pan(dx, dy)
         self.draw()
